@@ -36,7 +36,12 @@ class MotorController extends Controller
 
         // Type filter (if passed)
         if ($request->filled('type')) {
-            $query->where('type', $request->type);
+            $types = $request->type;
+            if (is_array($types)) {
+                $query->whereIn('type', $types);
+            } else {
+                $query->where('type', $types);
+            }
         }
 
         // Price filter (if passed)
@@ -44,9 +49,38 @@ class MotorController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
+        // Sort filter (if passed)
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+                default:
+                    $query->orderBy('id', 'desc');
+                    break;
+            }
+        } else {
+            $query->orderBy('id', 'desc');
+        }
+
         $motors = $query->get();
 
-        return view('list', compact('motors'));
+        // Get counts for each type to display in the sidebar
+        $typeCounts = Motor::select('type', \Illuminate\Support\Facades\DB::raw('count(*) as total'))
+            ->groupBy('type')
+            ->pluck('total', 'type')
+            ->toArray();
+
+        return view('list', compact('motors', 'typeCounts'));
     }
 
     public function show($id)
