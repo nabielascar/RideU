@@ -55,7 +55,6 @@
                 <div class="relative z-10 w-2/3">
                     <h2 class="text-2xl font-bold mb-2">Platform Sewa Motor Terbaik Sekitar Kampus</h2>
                     <p class="text-sm mb-4 opacity-90">Kemudahan dalam menyewa motor secara aman dan online. Terkoneksi dengan harga yang terjangkau.</p>
-                    <a href="{{ route('motors.list') }}" class="bg-blue-600 text-white text-sm font-semibold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition inline-block text-center w-fit">Sewa Motor</a>
                 </div>
                 <i class="fa-solid fa-motorcycle absolute -right-4 -bottom-4 text-9xl opacity-20 transform -rotate-12"></i>
             </div>
@@ -63,7 +62,6 @@
                 <div class="relative z-10 w-2/3">
                     <h2 class="text-2xl font-bold mb-2">Cara mudah menyewa motor dengan harga murah.</h2>
                     <p class="text-sm mb-4 opacity-90">Menyediakan layanan sewa motor secara online/offline yang aman dan nyaman.</p>
-                    <a href="{{ route('motors.list') }}" class="bg-blue-400 text-white text-sm font-semibold py-2 px-6 rounded-lg shadow hover:bg-blue-500 transition inline-block text-center w-fit">Sewa Motor</a>
                 </div>
                 <i class="fa-solid fa-moped absolute -right-4 -bottom-4 text-9xl opacity-20 transform -rotate-12"></i>
             </div>

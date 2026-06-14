@@ -23,6 +23,7 @@ Route::get('/order/{id}', [MotorController::class, 'order'])->middleware(['auth'
 Route::get('/payment/{id}', [MotorController::class, 'payment'])->middleware(['auth'])->name('motors.payment');
 Route::post('/rent/{id}', [MotorController::class, 'rent'])->middleware(['auth'])->name('motors.rent');
 Route::get('/profile', [MotorController::class, 'profile'])->middleware(['auth'])->name('profile');
+Route::put('/profile/update', [MotorController::class, 'updateProfile'])->middleware(['auth'])->name('profile.update');
 
 Route::get('/dashboard', function () {
     if (auth()->user()->role === 'admin') {

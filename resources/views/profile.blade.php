@@ -51,6 +51,27 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-6 md:px-12 mt-8 flex-1 w-full pb-20">
         
+        @if(session('success'))
+            <div class="mb-6 bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm flex items-center space-x-2">
+                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="mb-6 bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-xl text-sm flex items-center space-x-2">
+                <i class="fa-solid fa-circle-exclamation text-rose-500"></i>
+                <div>
+                    <span class="font-bold">Gagal memperbarui profil:</span>
+                    <ul class="list-disc list-inside mt-1 text-xs space-y-0.5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+        
         <div class="flex flex-col lg:flex-row gap-8">
             
             <!-- Left Side: Profile Summary Card -->
@@ -82,8 +103,51 @@
                 </div>
             </section>
 
-            <!-- Right Side: Rental History -->
-            <section class="w-full lg:w-3/4">
+            <!-- Right Side: Content -->
+            <section class="w-full lg:w-3/4 space-y-6">
+                <!-- Edit Profile Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                        <i class="fa-solid fa-user-pen mr-2 text-blue-600"></i> Edit Profil
+                    </h2>
+
+                    <form action="{{ route('profile.update') }}" method="POST" class="space-y-4">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Nama Lengkap</label>
+                                <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name) }}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition" required>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Alamat Email</label>
+                                <input type="email" id="email" name="email" value="{{ old('email', auth()->user()->email) }}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition" required>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="password" class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Password Baru (Kosongkan jika tidak ingin diubah)</label>
+                                <input type="password" id="password" name="password" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition" placeholder="Minimal 8 karakter">
+                            </div>
+                            
+                            <div>
+                                <label for="password_confirmation" class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Konfirmasi Password Baru</label>
+                                <input type="password" id="password_confirmation" name="password_confirmation" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-blue-500 transition" placeholder="Ulangi password baru">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end pt-2">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition text-sm flex items-center">
+                                <i class="fa-solid fa-save mr-2"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Rental History Card -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                     <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
                         <i class="fa-solid fa-clock-rotate-left mr-2 text-blue-600"></i> Riwayat Sewa Motor Anda
