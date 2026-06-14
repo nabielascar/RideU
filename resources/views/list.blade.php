@@ -26,6 +26,9 @@
                         <i class="fa-solid fa-gauge mr-1"></i> Admin Panel
                     </a>
                 @endif
+                <a href="{{ route('motors.list') }}" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-motorcycle mr-1"></i> Sewa Motor
+                </a>
                 <div class="flex items-center space-x-3">
                     <div class="text-right hidden sm:block">
                         <p class="text-sm font-bold text-gray-800">{{ auth()->user()->name }}</p>
@@ -42,6 +45,9 @@
                     </form>
                 </div>
             @else
+                <a href="{{ route('motors.list') }}" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-motorcycle mr-1"></i> Sewa Motor
+                </a>
                 <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-blue-600">Login</a>
                 <a href="{{ route('register') }}" class="text-sm font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Register</a>
             @endauth

@@ -18,6 +18,9 @@
                         <i class="fa-solid fa-gauge mr-1"></i> Admin Panel
                     </a>
                 @endif
+                <a href="{{ route('motors.list') }}" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-motorcycle mr-1"></i> Sewa Motor
+                </a>
                 <div class="flex items-center space-x-3">
                     <div class="text-right hidden sm:block">
                         <p class="text-sm font-bold text-gray-800">{{ auth()->user()->name }}</p>
@@ -26,7 +29,19 @@
                     <a href="{{ route('profile') }}" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden border-2 border-blue-600 hover:border-blue-700 transition block">
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=0D8ABC&color=fff" alt="Profile">
                     </a>
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-semibold transition">
+                            Logout
+                        </button>
+                    </form>
                 </div>
+            @else
+                <a href="{{ route('motors.list') }}" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-motorcycle mr-1"></i> Sewa Motor
+                </a>
+                <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-blue-600">Login</a>
+                <a href="{{ route('register') }}" class="text-sm font-bold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Register</a>
             @endauth
         </div>
     </nav>
